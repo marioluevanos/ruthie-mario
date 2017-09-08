@@ -1,0 +1,27 @@
+// EASE
+//-------------------------------------------
+$ease-in-p0             : cubic-bezier(0.50, 0.00, 1.00, 1.00);
+$ease-in-p1             : cubic-bezier(0.80, 0.00, 1.00, 1.00);
+$ease-in-p2             : cubic-bezier(1.00, 0.00, 1.00, 1.00);
+
+$ease-out-p0            : cubic-bezier(0.00, 0.00, 0.50, 1.00);
+$ease-out-p1            : cubic-bezier(0.00, 0.00, 0.25, 1.00);
+$ease-out-p2            : cubic-bezier(0.00, 0.00, 0.00, 1.00);
+
+$ease-in-out-p0         : cubic-bezier(0.50, 0.00, 0.50, 1.00);
+$ease-in-out-p1         : cubic-bezier(0.20, 0.00, 0.00, 1.00);
+$ease-in-out-p2         : cubic-bezier(0.80, 0.00, 0.20, 1.00);
+
+// COLORS
+//-------------------------------------------
+$color-navy				: #001f33;
+$color-blue-1 			: #aa9c62;
+
+$color-gold-1			: #aa9c62;
+$color-gold-2			: #dbd4b3;
+
+// FONTS
+//-------------------------------------------
+$font-regular			: 'QuaintGothicSGOT-Regular', Serif; 
+$font-bold				: 'RennieMackintoshITCStd-Bold', Serif; 
+$font-light				: 'RennieMackintoshITCStd-Light', Serif;

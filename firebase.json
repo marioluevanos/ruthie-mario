@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/rsvp",
+        "destination": "https://www.ruthie-mario.love/#/rsvp",
+        "type": 302
+      }
+    ],
+    "cleanUrls": true
+  }
+}
