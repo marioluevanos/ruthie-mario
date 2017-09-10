@@ -19,10 +19,10 @@
 				.text
 					h3.subtitle: span.split-text How we first met
 					h2: span.split-text “stop staring &amp; close youR mouth”
-					p
+					p.scroll-rise
 						span.dropcaps: include ../assets/images/dropcaps-t.svg
 						| hat is the thought I had when I saw Ruthie for the first time at my friend Hoang’s 40th birthday. I was mezmorized. I needed to know who she was, the beauty walked in. I tried to impress her by showing her my best dance moves.
-					p After the initial meet, it took—maybe two weeks for us to finally arrange and have our first date. It was a year later that I moved in with her, and at that time he knew that Ruthie and I, are meant to be.
+					p.scroll-rise After the initial meet, it took—maybe two weeks for us to finally arrange and have our first date. It was a year later that I moved in with her, and at that time he knew that Ruthie and I, are meant to be.
 			.col
 				countdown.scroll-anim
 				wedding-image.flower-2.scroll-anim(file='flower-2.png')
@@ -44,12 +44,9 @@
 						include ../assets/images/icon-play.svg
 					.proposal-video-poster
 					video(controls): source(src='../assets/video/proposal-compressed.mp4', type='video/mp4')
-	section.details 
-		.text.scroll-anim
-			h3.subtitle: span.split-text Wedding Details
-			p Our ceremony and reception will be held on October 27, 2017 at the Oviatt Penthouse. 
-			p Ceremony will begin at Six o’clock.
-		google-map
+	
+	section.details: google-map
+	
 	section.photos
 		.text
 			h3.subtitle: span.split-text Engagement Photos
@@ -101,7 +98,7 @@
 			/* Initialize flickity after all the images have been loaded */
 			this.$parent.imagesLoaded.on('done', ()=> {
 				this.initializeFlickity();
-				this.animations.enter.delay(1).timeScale(1).play();
+				this.animations.enter.delay(1).timeScale(1.3).play();
 			});
 
 			if (this.$parent.imagesLoaded.isComplete) {
@@ -274,6 +271,7 @@ section.header {
 			position: relative;
 			top: vw(-60);
 			text-align: center;
+			overflow: hidden;
 			@include bp(2) {
 				width: 90%;
 				top: 0;
@@ -312,9 +310,10 @@ section.header {
 	}
 	.wedding-button {
 		@include bp(2) {
+			display: none;
 			padding: vw(40) vw(240);
 			.text {
-				font-size: 4em;
+				font-size: 4vw;
 			}
 		}
 	}
@@ -384,7 +383,7 @@ section.how-we-met {
 				}
 			}
 			p {
-				width: 85%;
+				width: 90%;
 				@include bp(2) {
 					width: 70%;
 					margin: 0 auto vw(30);
@@ -393,7 +392,7 @@ section.how-we-met {
 		}
 		h2 {
 			margin: 0 0 vw(90) vw(0);
-			font: 4.5em/1 $font-bold;
+			font: 6vw/1 $font-bold;
 			color: $color-navy;
 			.split-text {
 				div:first-of-type .char:first-of-type {
@@ -537,7 +536,7 @@ section.she-said {
 			padding: vw(120) 0;
 		}
 		> svg {
-			width: vw(720);
+			width: 70vw;
 			overflow: visible;
 		}
 		svg#subtitle-proposed-text {
@@ -705,7 +704,7 @@ section.she-said {
 }
 
 section.details {
-	padding: vw(120) 0;
+	padding: vw(300) 0 0;
 	position: relative;
 	@include bp(2) {
 		padding: vw(300) 0 0;

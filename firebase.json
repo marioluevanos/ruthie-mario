@@ -4,7 +4,11 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "design-print/",
+      "design-web/",
+      "config/",
+      "build/"
     ],
     "redirects": [
       {

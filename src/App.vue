@@ -2,6 +2,10 @@
 	#app
 		loader(:doneLoading='doneLoading')
 		wedding-image.flower-1(file='flower-1.png')
+		nav#nav-mobile
+			.texture-2
+			wedding-button(to='/') Home
+			wedding-button(to='/rsvp') RSVP
 		router-view
 </template>
 
@@ -48,7 +52,7 @@
 		@include bp(3) {
 			font-size: 18px;
 		}
-		@include bp(2) {
+		@include bp(1) {
 			font-size: 24px;
 			width: 100vw;
 			overflow-x: hidden; 
@@ -57,7 +61,7 @@
 	h3 {
 		color: $color-gold-1;
 		font-variant: all-small-caps;
-    	font-size: 2.25em;
+    	font-size: 3vw;
 		font-weight: normal;
 		margin: 0 0 vw(0);
 	}
@@ -65,23 +69,56 @@
 		color: $color-navy;
 	}
 	p {
-		font-size: 1.75em;
+		font-size: 1.825vw;
 		line-height: 1.33;
 		margin: 0 0 vw(30) 0;
-		@include bp(4) {
-			font-size: 1.5em;
-		}
-		@include bp(3) {
-			font-size: 1.15em;
-		}
 		@include bp(2) {
-			font-size: 2em;
+			font-size: 5vw;
 		}
+		
 	}
 	#app {
 		position: relative;
 		min-height: 100%;
 		width: 100%;
+		overflow: hidden;
+	}
+	#nav-mobile {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: vw(240);
+		background: white;
+		z-index: 1337;
+		@include bp(2) {
+			display: flex;
+		}
+		.wedding-button {
+			background: none;
+			width: 50%;
+			height: 100%;
+			padding: 0;
+			.border,
+			&:before {
+				display: none;
+			}
+			.text {
+				font-size: 6vw;
+			}
+			&:last-of-type {
+				border-left: 1px solid $color-gold-1;
+			}
+		}
+		.texture-2 {
+			position: absolute;
+			top: vw(-25); right: 0; left: 0;
+			z-index: 0;
+			height: vw(25);
+		}
 	}
 	.wedding-image[class*='ep-'] {
 		position: relative;

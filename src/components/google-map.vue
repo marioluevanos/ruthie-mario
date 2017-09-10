@@ -1,6 +1,11 @@
 <template lang='pug'>
 	.google-map-group.clear
-		.google-map-text: .google-map-inner.scroll-anim
+		.google-map
+		.google-map-text
+			.details
+				h3.subtitle: span.split-text Wedding Details
+				p Our ceremony and reception will be held on October 27, 2017 at the Oviatt Penthouse. 
+				p Ceremony will begin at Six o’clock.
 			address
 				h3.subtitle Address
 				p Oviatt Penthouse
@@ -11,7 +16,6 @@
 					h3.subtitle Parking
 					p There are a few lots available in close proximity for parking.
 				wedding-button.parking Show Parking
-		.google-map
 </template>
 
 <script>
@@ -205,23 +209,22 @@
 	@import '../styles/mixins.scss';
 	.google-map-group {
 		position: relative;
-		margin: vw(30) 0 0;
+		margin: 0;
+		display: flex;
 		@include bp(2) {
 			display: flex;
 			flex-direction: column-reverse;
 		}
 	}
 	.google-map-text {
-		text-align: right;
-		width: vw(890);
-		float: left;
-		position: absolute;
-		top: vw(-30); bottom: vw(-30); left: 0;
+		text-align: left;
+		width: 40%;
+		padding: 0 5%;
 		color: $color-navy;
 		display: flex;
 		align-items: center;
-		justify-content: flex-end;
-		padding-right: vw(440);
+		flex-direction: column;
+		justify-content: center;
 		@include bp(2) {
 			float: none;
 			padding: 0;
@@ -233,6 +236,7 @@
 			bottom: initial;
 			left: initial;
 		}
+
 		.google-map-inner {
 			width: 100%;
 			position: relative;
@@ -244,19 +248,20 @@
 		h3 {
 			font-size: 1.5em;
 			color: $color-gold-1;
-			margin: vw(30) 0 0;
+			margin: 0;
 			@include bp(2) {
 				margin-top: 0;
 			}
 		}
 		address {
+			display: block;
+			width: 100%;
 			font-style: normal;
-			text-align: right;
+			margin: vw(30) 0;
 			@include bp(2) {
 				width: 50%;
 				position: absolute;
 				top: 0; left: 0;
-				text-align: left;
 			}
 			p {
 				max-width: none;
@@ -267,8 +272,8 @@
 			}
 		}
 		.parking {
+			width: 100%;
 			.inner {
-				padding-left: 40%;
 				@include bp (2) {
 					padding-left: 50%;
 					position: relative;
@@ -307,22 +312,15 @@
 			}
 		}
 		p {
-			font-size: 1em;
 			max-width: none;
 			margin: 0;
 			padding: 0;
-			@include bp(2) {
-				font-size: 1.5em;
-			}
 		}
 	}
 	.google-map {
-		width: vw(890);
-		float: right;
-		margin-right: vw(50);
-		margin-right: 0;
+		width: 60%;
 		position: relative;
-		min-height: vw(420);
+		min-height: vw(600);
 		@include bp(2) {
 			width: 95%;
 			height: 30vh;

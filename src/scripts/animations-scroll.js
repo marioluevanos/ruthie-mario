@@ -39,7 +39,6 @@ export default function(controller) {
 			ifClassName('countdown') 		? '50%' :
 			ifClassName('texture-3') 		? '30%' :
 			ifClassName('icon-drink') 		? '50%' :
-			ifClassName('text') 			? '00%' :
 			ifClassName('detail-inner') 	? '30%' :
 			ifClassName('google-map') 		? '30%' : 
 			ifClassName('subtitle') 		? '0%' :
@@ -53,7 +52,6 @@ export default function(controller) {
 			ifClassName('countdown') 		? '-100%' :
 			ifClassName('texture-3') 		? '-30%' :
 			ifClassName('icon-drink') 		? '-300%' :
-			ifClassName('text') 			? '-50%' :
 			ifClassName('detail-inner') 	? '-30%' :
 			ifClassName('google-map') 		? '-30%' :
 			ifClassName('subtitle') 		? '-300%' : 
@@ -107,7 +105,7 @@ export default function(controller) {
 			triggerHook: 1,
 		});
 
-		let duration = 2;
+		let duration = 1;
 
 		textTimeline
 		.fromTo(title, duration/4, {
@@ -142,44 +140,50 @@ export default function(controller) {
 		------------------------------------------------------ 
 	*/
 
-	// var proposedText = document.querySelector('#subtitle-proposed-text').children;
+	var proposedText = document.querySelector('#subtitle-proposed-text').children;
 
-	// let saidYesTimeline = new TimelineMax({ paused: true })
-	// .set('.said-yes', { height: '100vh' })
-	// .staggerFrom(proposedText, 0.6, {
-	// 	scaleX: 0,
-	// 	y: '200%',
-	// 	ease: Circ.easeOut
-	// }, 0.6/proposedText.length)
-	// .staggerTo(proposedText, 0.6, {
-	// 	scaleX: 0,
-	// 	y: '-200%',
-	// 	ease: Circ.easeIn
-	// }, 0.6/proposedText.length)
-	// .from('#subtitle-she-said-yes', 1, {
-	// 	autoAlpha: 0,
-	// 	ease: Circ.easeOut
-	// })
-	// .fromTo('.proposal', 1, {
-	// 	position: 'absolute',
-	// 	top: '50%',
-	// 	left: '50%',
-	// 	x: '-50%',
-	// 	y: '-50%',
-	// 	autoAlpha: 0,
-	// 	ease: Power2.easeIn
-	// }, {
-	// 	autoAlpha: 1,
-	// 	ease: Power2.easeOut
-	// })
-	// new ScrollMagic.Scene({
-	// 	triggerElement: 'section.she-said', 
-	// 	duration: '300%',
-	// 	triggerHook: 0,
-	// })
-	// .setPin('.said-yes')
-	// .setClassToggle('.said-yes', 'pinned')
-	// .on('progress', e => saidYesTimeline.progress(e.progress))
-	// .addTo(controller);
+	let saidYesTimeline = new TimelineMax({ paused: true })
+	.set('.said-yes', { height: '100vh' })
+	.set('.proposal', {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		x: '-50%',
+		y: '-50%',
+	})
+	.set('.proposal-video', {
+		boxShadow: 'none',
+		width: '100vw'
+	})
+	.staggerFrom(proposedText, 0.6, {
+		scaleX: 0,
+		y: '200%',
+		ease: Circ.easeOut
+	}, 0.6/proposedText.length)
+	.staggerTo(proposedText, 0.6, {
+		scaleX: 0,
+		y: '-200%',
+		ease: Circ.easeIn
+	}, 0.6/proposedText.length)
+	.from('#subtitle-she-said-yes', 1, {
+		autoAlpha: 0,
+		ease: Circ.easeOut
+	})
+	.fromTo('.proposal', 1, {
+		autoAlpha: 0,
+		ease: Power2.easeIn
+	}, {
+		autoAlpha: 1,
+		ease: Power2.easeOut
+	})
+	new ScrollMagic.Scene({
+		triggerElement: 'section.she-said', 
+		duration: '300%',
+		triggerHook: 0,
+	})
+	.setPin('.said-yes')
+	.setClassToggle('.said-yes', 'pinned')
+	.on('progress', e => saidYesTimeline.progress(e.progress))
+	.addTo(controller);
 
 }
