@@ -1,21 +1,23 @@
 <template lang='pug'>
 	.google-map-group.clear
-		.google-map
+		.google-map-wrap.scroll-anim
+			.overlay
+			.google-map
 		.google-map-text
-			.details
+			.details.scroll-rise
 				h3.subtitle: span.split-text Wedding Details
-				p Our ceremony and reception will be held on October 27, 2017 at the Oviatt Penthouse. 
-				p Ceremony will begin at Six o’clock.
-			address
-				h3.subtitle Address
-				p Oviatt Penthouse
-				p 617 S Olive Street
-				p Los Angeles, CA 90014
-			.parking
+				p.split-lines Our ceremony and reception will be held on October 27, 2017 at the Oviatt Penthouse. 
+				p.split-lines Ceremony will begin at Six o’clock.
+			address.scroll-rise
+				h3.subtitle: span.split-text Address
+				p.split-lines Oviatt Penthouse
+				p.split-lines 617 S Olive Street
+				p.split-lines Los Angeles, CA 90014
+			.parking.scroll-rise
 				.inner
-					h3.subtitle Parking
-					p There are a few lots available in close proximity for parking.
-				wedding-button.parking Show Parking
+					h3.subtitle: span.split-text Parking
+					p.split-lines There are a few lots available in close proximity for parking.
+				wedding-button.parking.scroll-rise Show Parking
 </template>
 
 <script>
@@ -26,7 +28,7 @@
 		Initialize the map first, so that there isn't a duplicate 
 		GoogleMaps API script injected into the <body>
 	*/
-	const googleMapsAPI = loadGoogleMapsAPI({key: 'AIzaSyB9MbNuwaqb1uIW18ervfyn2uxapX78bdc' }).then(api => api);
+	const googleMapsAPI = loadGoogleMapsAPI({ key: 'AIzaSyB9MbNuwaqb1uIW18ervfyn2uxapX78bdc' }).then(api => api);
 
 	const weddingMap = [{
 		coords: {
@@ -216,13 +218,19 @@
 			flex-direction: column-reverse;
 		}
 	}
+
+	.overlay {
+		@include bp(2) {
+			display: none;
+		}
+	}
 	.google-map-text {
 		text-align: left;
-		width: 40%;
-		padding: 0 5%;
+		width: 50%;
+		padding: 0 8% 0 8%;
 		color: $color-navy;
 		display: flex;
-		align-items: center;
+	   	align-items: flex-start;
 		flex-direction: column;
 		justify-content: center;
 		@include bp(2) {
@@ -237,19 +245,12 @@
 			left: initial;
 		}
 
-		.google-map-inner {
-			width: 100%;
-			position: relative;
-			z-index: 1;
-			@include bp(2) {
-				display: block;
-			}
-		}
 		h3 {
-			font-size: 1.5em;
+			font-size: 1.5vw;
 			color: $color-gold-1;
 			margin: 0;
 			@include bp(2) {
+				font-size: 6vw;
 				margin-top: 0;
 			}
 		}
@@ -259,9 +260,7 @@
 			font-style: normal;
 			margin: vw(30) 0;
 			@include bp(2) {
-				width: 50%;
-				position: absolute;
-				top: 0; left: 0;
+				position: relative;
 			}
 			p {
 				max-width: none;
@@ -272,10 +271,9 @@
 			}
 		}
 		.parking {
-			width: 100%;
+			width: 80%;
 			.inner {
 				@include bp (2) {
-					padding-left: 50%;
 					position: relative;
 				}
 			}
@@ -298,17 +296,8 @@
 			}
 			span {
 				text-transform: uppercase;
-				border-width: 2px;
 				border-color: $color-gold-1;
 				color: $color-gold-1;
-			}
-			.border:nth-of-type(1) {
-				left: vw(-8);
-				right: vw(-8);
-			}
-			.border:nth-of-type(2) {
-				top: vw(-8);
-				bottom: vw(-8);
 			}
 		}
 		p {
@@ -318,14 +307,18 @@
 		}
 	}
 	.google-map {
-		width: 60%;
+		position: absolute;
+		top: 0; right: 0; bottom: 0; left: 0;
+	}
+	.google-map-wrap {
+		width: 50%;
 		position: relative;
 		min-height: vw(600);
 		@include bp(2) {
 			width: 95%;
 			height: 30vh;
 			float: none;
-			margin: vw(60) auto vw(60);
+			margin: vw(120) auto vw(120);
 		}
 	}
 	.google-map-content {

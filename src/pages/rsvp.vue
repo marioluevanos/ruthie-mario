@@ -3,6 +3,7 @@
 		.page-rsvp-inner
 			.col
 				.texture-2.img-preload
+					.overlay
 					router-link.go-back(to='/')
 						span
 							.icon-home: include ../assets/images/icon-home.svg
@@ -22,6 +23,7 @@
 									value='',
 									placeholder='',
 									@keyup='checkGuest',
+									@keydown.enter='submitGuestPassword'
 									@focus='onFocus',
 									@blur='onBlur')
 								.input-placeholder Guest Password
@@ -284,18 +286,32 @@
 		overflow: hidden;
 		margin: auto;
 		position: relative;
+		@include bp(2) {
+			min-height: 100%;
+			height: 100vh;
+			flex-direction: column;
+		}
+		.overlay {
+			position: absolute;
+			top: 0; right: 0; bottom: 0; left: 0;
+			background: white;
+			z-index: 1;
+		}
 		.page-rsvp-inner {
 			position: relative;
 			display: flex;
+			@include bp(2) {
+				height: inherit;
+				display: block;
+			}
 		}
-		@include bp(2) {
-			min-height: 100%;
-			height: 100%;
-			flex-direction: column;
-		}
+		
 		p {
-			font-size: 1em;
+			font-size: 1.5vw;
 			transition: all 0.6s $ease-in-out-p0;
+			@include bp(2) {
+				font-size: 6vw;
+			}
 		}
 		.wedding-button {
 			margin: vw(30) 0;
@@ -394,6 +410,7 @@
 				width: $nav-height;
 				background: $color-gold-1;
 				transform: none;
+				display: none;
 			}
 			span {
 				position: relative;
@@ -459,6 +476,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				padding: 180px 0 $nav-height;
 			}
 		}
 
@@ -470,7 +488,7 @@
 			align-items: center;
 			justify-content: center;
 			@include bp(2) {
-				padding-top: $nav-height;
+				padding-top: 0;
 				height: auto;
 				float: none;
 			}
@@ -480,7 +498,7 @@
 				text-align: center;
 				@include bp(2) {
 					width: 90%;
-					padding-top: vw(30);
+					padding: 0;
 				}
 				&.do-count {
 					display: flex;
@@ -507,7 +525,7 @@
 					text-align: center;
 					border-radius: 2px;
 					padding: vw(10) vw(10);
-					font-size: 2em;
+					font-size: 1.5vw;
 					position: relative;
 					z-index: 1;
 					width: 100%;
@@ -517,7 +535,7 @@
 					margin: vw(40) 0 vw(40);
 					@include bp(2) {
 						padding: vw(30) vw(30);
-						font-size: 3em;
+						font-size: 6vw;
 					}
 				}
 				.input-placeholder {
@@ -532,6 +550,9 @@
 					transform: scale(1) translate(0, -50%);
 					transition: all 0.3s $ease-in-out-p0 0.6s;
 					z-index: 0;
+					@include bp(2) {
+						font-size: 6vw;
+					}
 					&.active {
 						top: -15%;
 						transform: scale(0.5) translate(0, -50%);
@@ -636,9 +657,12 @@
 				transition: all 1s $ease-in-out-p0;
 				z-index: 1;
 				h3 {
-					font: normal 3.5em/1 $font-bold;
+					font: normal 3.5vw/1 $font-bold;
 					margin: 0 0 vw(30);
 					color: $color-gold-1;
+					@include bp(2) {
+						font-size: 12vw;
+					}
 				}
 				p {
 					margin: 0;
@@ -660,7 +684,7 @@
 					cursor: context-menu;
 					width: 100%;
 					margin: 0;
-					font: normal 1em $font-bold;
+					font: normal 1.5vw $font-bold;
 					padding: vw(15);
 					border-radius: 0;
 					display: block;
@@ -671,7 +695,7 @@
 					transition: all 0.3s ease-in-out;
 					@include bp(2) {
 						margin-bottom: 60px;
-						font-size: 2em;
+						font-size: 6vw;
 						padding: vw(30) vw(30);
 					}
 				}
@@ -693,6 +717,9 @@
 				width: vw(60);
 				background: $color-gold-1 url('../assets/images/icon-select-arrow.svg') 50% 50%/auto 50% no-repeat;
 				transition: all 0.3s ease-in-out;
+				@include bp(2) {
+					width: vw(120);
+				}
 			}
 			&:hover .icon-arrow {
 				background-color: darken($color-gold-1, 15%);
@@ -709,6 +736,7 @@
 			background: white;
 			overflow: hidden;
 			@include bp(2) {
+				display: none;
 				position: relative;
 				width: 100%;
 				height: 20vh;

@@ -21,10 +21,11 @@
 					h2: span.split-text “stop staring &amp; close youR mouth”
 					p.scroll-rise
 						span.dropcaps: include ../assets/images/dropcaps-t.svg
-						| hat is the thought I had when I saw Ruthie for the first time at my friend Hoang’s 40th birthday. I was mezmorized. I needed to know who she was, the beauty walked in. I tried to impress her by showing her my best dance moves.
-					p.scroll-rise After the initial meet, it took—maybe two weeks for us to finally arrange and have our first date. It was a year later that I moved in with her, and at that time he knew that Ruthie and I, are meant to be.
-			.col
-				countdown.scroll-anim
+						span.split-lines hat is the thought I had when I saw Ruthie for the first time at my friend Hoang’s 40th birthday. I was mezmorized. I needed to know who she was, the beauty walked in. I tried to impress her by showing her my best dance moves.
+					p.scroll-rise 
+						span.split-lines After the initial meet, it took—maybe two weeks for us to finally arrange and have our first date. It was a year later that I moved in with her, and at that time he knew that Ruthie and I, are meant to be.
+			.col.scroll-rise
+				wedding-countdown.scroll-anim
 				wedding-image.flower-2.scroll-anim(file='flower-2.png')
 				wedding-image.ep-2(file='ep-2.jpg', className='scroll-anim ep-2')
 				.texture-3.scroll-anim.img-preload
@@ -37,7 +38,7 @@
 			include ../assets/images/subtitle-she-said-yes.svg
 			.proposal
 				.proposal-bg
-					wedding-image.flower-3(file='flower-3.png')
+					//- wedding-image.flower-3.scroll-anim(file='flower-3.png')
 					wedding-image.glitter(file='glitter.png')
 				.proposal-video
 					button#play-button(@click='playVideo')
@@ -51,27 +52,26 @@
 		.text
 			h3.subtitle: span.split-text Engagement Photos
 			.icon-birds.scroll-anim: include ../assets/images/icon-birds.svg
-		.photo-gallery.scroll-anim
-			- for(var i = 1; i <= 10; i++) {
-				wedding-image.photo(file='g-' + i + '.jpg')
-			-}
+		.photo-gallery
+			wedding-image.photo(v-for='(photo, index) in gallery' :key='index' :file='photo')
 	section.registry
-			.texture-2.img-preload
-			wedding-image.flower-4(file='flower-4.png')
-			.cols
-				.col
-					.text
-						h3.subtitle: span.split-text Registry
-						p We can't wait to get married and are so honored to have you at our wedding! If you would like to help us start our new life together, we have registered for items we would love to have in our home.
-				.col
-					wedding-button(href='https://www.theknot.com/us/ruthie-collins-and-mario-luevanos-oct-2017/registry#newly-wed')
-						img.img-preload(src='../assets/images/logo-knot.png')
-					wedding-button(href='https://www.macys.com/wgl/registry/guest?registryId=6796946&PartnerID=WEDDINGCHANNEL&cm_mmc=WEDDINGCHANNEL-_-Registry-_-n-_-Registry&LinkshareID=590115231&ref=wc&EFCKEY=%7B%22EXPERIMENT%22%3A%5B%222525%22%2C%2228-20%22%5D%7D&SEED=2045141519874331111%7C25-21%2C31-20')
+		.overlay
+		.texture-2.img-preload
+		wedding-image.flower-4(file='flower-4.png')
+		.cols
+			.col
+				.text
+					h3.subtitle: span.split-text Registry
+					p.scroll-rise 
+						span.split-lines We can't wait to get married and are so honored to have you at our wedding! If you would like to help us start our new life together, we have registered for items we would love to have in our home.
+			.col
+				wedding-button.scroll-rise(href='https://www.theknot.com/us/ruthie-collins-and-mario-luevanos-oct-2017/registry#newly-wed')
+					img.img-preload(src='../assets/images/logo-knot.png')
+				wedding-button.scroll-rise(href='https://www.macys.com/wgl/registry/guest?registryId=6796946&PartnerID=WEDDINGCHANNEL&cm_mmc=WEDDINGCHANNEL-_-Registry-_-n-_-Registry&LinkshareID=590115231&ref=wc&EFCKEY=%7B%22EXPERIMENT%22%3A%5B%222525%22%2C%2228-20%22%5D%7D&SEED=2045141519874331111%7C25-21%2C31-20')
 						img.img-preload(src='../assets/images/logo-macys.png')
 </template>
 
 <script>
-	import Flickity from 'flickity';
 	import { TweenMax, TimelineMax } from 'gsap';
 	import 'gsap/ScrollToPlugin';
 	import animations from '../scripts/animations-page-index';
@@ -81,6 +81,22 @@
 
 	export default {
 		name: 'app',
+		data() {
+			return {
+				gallery: [
+					'g-1.jpg',
+					'g-2.jpg',
+					'g-3.jpg',
+					'g-4.jpg',
+					'g-5.jpg',
+					'g-6.jpg',
+					'g-7.jpg',
+					'g-8.jpg',
+					'g-9.jpg',
+					'g-10.jpg'
+				]
+			};
+		},
 		beforeRouteLeave(to, from, next) {
 			return !ifMobile() ? scrollUp(()=> this.animations.leave(next)) : this.animations.leave(next);
 		},
@@ -95,42 +111,31 @@
 				animationsScroll(this.bodyController);
 			}
 
-			/* Initialize flickity after all the images have been loaded */
+			/* Initialize after all the images have been loaded */
 			this.$parent.imagesLoaded.on('done', ()=> {
-				this.initializeFlickity();
-				this.animations.enter.delay(1).timeScale(1.3).play();
+				if (!ifMobile()) {
+					this.resizeGallery();
+				}
+				this.animations.intro.delay(1).timeScale(1.3).play();
 			});
 
 			if (this.$parent.imagesLoaded.isComplete) {
-				this.animations.enter.timeScale(1).play();
-				window.scrollTo(0, 0);
+				this.animations.enter.timeScale(1).play();	
 			}
 
 		},
 		methods: {
-			initializeFlickity() {
-				setTimeout(()=> {
-					this.flickity = new Flickity(document.querySelector('.photo-gallery'), {
-						prevNextButtons: true,
-						cellAlign: 'center',
-						pageDots: ifMobile() ? true : false,
-						contain: false,
-						wrapAround: ifMobile(),
-						arrowShape: 'M86.8,95l-80-45l80-45L71.1,51.3L86.8,95z M14.4,50l67.1,35.3L27.4,50l54.1-35.3L14.4,50z'
-					});
-				}, 100);
-			},	
+			resizeGallery() {
+				let gallery = this.$el.querySelector('.photo-gallery');
+				let photos = gallery.children;
+				let galleryWidth = Array.from(photos).reduce((all, item) => all += item.clientWidth, 1) + 'px';
+			
+				gallery.style.width = galleryWidth;
+			},
 			playVideo() {
 				this.$el.querySelector('video').play();
 				this.$el.querySelector('.proposal-video-poster').style.display = 'none';
 				this.$el.querySelector('#play-button').style.display = 'none';
-			}
-		},
-		watch: {
-			'$route'(to, from) {
-
-				console.log(this.$parent.imagesLoaded, this.$route);
-
 			}
 		}
 	}
@@ -142,6 +147,13 @@
 
 #page-index {
 	background: white;
+}
+
+.overlay {
+	position: absolute;
+	top: -1px; right: -1px; bottom: -1px; left: -1px;
+	background: white;
+	z-index: 1;
 }
 
 section.header {
@@ -271,12 +283,12 @@ section.header {
 			position: relative;
 			top: vw(-60);
 			text-align: center;
-			overflow: hidden;
 			@include bp(2) {
 				width: 90%;
 				top: 0;
 				margin: auto;
 				padding-top: vw(100);
+				overflow: hidden;
 			}
 		}
 		.title {
@@ -371,8 +383,8 @@ section.how-we-met {
 			padding-top: vw(170);
 			width: vw(470);
 			@include bp(2) {
-				padding-top: vw(200);
-				width: auto;
+				padding: vw(120) 0 0;
+				width: 80%;
 				.wedding-image {
 					width: 55%;
 					height: auto;
@@ -385,7 +397,7 @@ section.how-we-met {
 			p {
 				width: 90%;
 				@include bp(2) {
-					width: 70%;
+					width: 100%;
 					margin: 0 auto vw(30);
 				}
 			}
@@ -400,10 +412,11 @@ section.how-we-met {
 				}
 			}
 			@include bp(2) {
-				width: 60%;
+				width: auto;
+				font-size: 12vw;
 				box-sizing: border-box;
-				margin-bottom: vw(240);
-				padding-left: vw(120);
+				margin: 0 0 vw(120);
+				padding: 0;
 			}
 		}
 	}
@@ -411,9 +424,9 @@ section.how-we-met {
 		width: vw(550);
 		height: vw(640);
 		@include bp(2) {
-			width: 35%;
+			width: 100%;
 			height: 40vh;
-			position: absolute;
+			position: relative;
 			top: 0;
 			right: 0;
 		}
@@ -476,9 +489,9 @@ section.how-we-met {
 			transform: translate(-50%, 50%);
 			width: vw(440);
 			@include bp(2) {
-				width: vw(340);
-				bottom: 10%; 
-				right: 10%;
+				width: vw(700);
+				bottom: 20%; 
+				right: -20%;
 				left: initial;
 			}
 		}
@@ -498,7 +511,10 @@ section.how-we-met {
 				background: linear-gradient(to bottom, lighten($color-gold-1, 25%) 0%, darken($color-gold-1, 20%) 100%);
 			}
 			@include bp(2) {
-				height: 60%;
+				height: 80%;
+				transform: translate(0%, -50%);
+				top: 50%;
+				right: 0;
 			}
 		}
 		.ep-2 {
@@ -507,6 +523,7 @@ section.how-we-met {
 			z-index: 1;
 			@include bp(2) {
 				right: 0;
+				width: 65%;
 			}
 
 			img {
@@ -533,20 +550,23 @@ section.she-said {
 		padding: 20px 0 40px;
 		@include bp(2) {
 			height: auto;
-			padding: vw(120) 0;
+			padding: vw(30) 0 vw(120) 0;
 		}
 		> svg {
-			width: 70vw;
 			overflow: visible;
 		}
 		svg#subtitle-proposed-text {
 			fill: $color-navy;
+			width: 70vw;
+			margin: vw(60) 0 0;
 			@include bp(2) {
-				width: 70%;
+				width: 80%;
 			}
 		}
 		svg#subtitle-she-said-yes {
 			fill: $color-gold-1;
+			width: 26vw;
+			margin: 0 0 vw(60);
 			@include bp(2) {
 				margin-top: vw(30);
 				width: 70%;
@@ -562,7 +582,8 @@ section.she-said {
 	position: relative;
 	z-index: 1;
 	@include bp(2) {
-		margin-top: vw(120);
+		margin-top: vw(60);
+		margin-bottom: vw(60);
 	}
 	.proposal-bg {
 		position: relative;
@@ -612,7 +633,7 @@ section.she-said {
 		width: vw(460);
 		margin: auto;
 		bottom: -50%;
-		z-index: 1;
+		z-index: 0;
 		@include bp(2) {
 			bottom: -25%;
 			width: 100%;
@@ -629,7 +650,10 @@ section.she-said {
 		@include bp(2) {
 			bottom: initial;
 			top: -25%;
-			transform: scale(1, -1);
+			transform: none;
+			left: 0;
+			right: 0;
+			transform: scale(1, 1);
 		}
 	}
 	.proposal-video {
@@ -704,10 +728,10 @@ section.she-said {
 }
 
 section.details {
-	padding: vw(300) 0 0;
+	padding: vw(300) 0;
 	position: relative;
 	@include bp(2) {
-		padding: vw(300) 0 0;
+		padding: 0;
 	}
 	> .text {
 		text-align: center;
@@ -730,7 +754,7 @@ section.photos {
 	z-index: 1;
 	.text {
 		position: relative;
-		padding: vw(120) vw(240) vw(80);
+		padding: vw(40) vw(240) vw(30);
 		@include bp(2) {
 			display: flex;
 			align-items: center;
@@ -741,7 +765,6 @@ section.photos {
 		.subtitle {
 			position: relative;
 			@include bp(2) {
-				display: none;
 				text-align: center;	
 				margin-bottom: vw(120);
 			}
@@ -749,16 +772,17 @@ section.photos {
 	}
 	.icon-birds {
 		position: absolute;
-		width: vw(120);
+		width: vw(150);
 		height: auto;
-		right: vw(240);
-		top: 50%;
-		transform: translate(0, -50%);
+		left: vw(80);
+		top: 150%;
+		transform: translate(0, 0%);
 		@include bp(2) {
-			width: 50%;
-			margin: vw(240) 0;
+			width: 40%;
+			margin: vw(30) auto vw(180);
 			top: initial;
 			right: initial;
+			left: 0;
 			transform: none;
 			position: relative;
 		}
@@ -777,119 +801,48 @@ section.photos {
 		svg .st2,
 		svg .st3,
 		svg .st4 {
-			stroke-width: 1;
+			stroke-width: 2;
 		}
 	}
-	.flickity-page-dots {
-		margin: auto;
-		width: 100%;
-		bottom: vw(-90);
-		left: 0; right: 0;
-		white-space: nowrap;
-		@include bp(2) {
-			bottom: vw(90);
-		}
-		.dot {
-			width: vw(24);
-			height: vw(24);
-			margin: 0 1vw;
-			border-radius: 0;
-			border: 2px solid transparent;
-			background: darken($color-gold-2, 10%);
-			transform: scale(1, 1) rotate(-45deg);
-			opacity: 1;
-			transition: all 0.15s linear;
-			@include bp(2) {
-				border: 2px solid white;
-				background: rgba(white, 0);
-				margin: 0 15px;
-				height: 20px;
-				width: 20px;
-			}
-			&.is-selected {
-				opacity: 1;
-				border: 10px double $color-navy;
-				transform: scale(1.2, 1.2) rotate(-45deg);
-				background: $color-gold-2;	
-				@include bp(2) {
-					background: white;
-					border: 2px double white;
-				}
-			}
-		}
-	}
+
 	.photo-gallery {
 		position: relative;
-
+		box-sizing: border-box;
+		left: vw(320);
+	
 		@include bp(2) {
-			.flickity-viewport  {
-				background: darken($color-navy, 0%);	
-			}
+			left: 0;
 		}
-		.flickity-viewport,
-		.flickity-slider,
-		.photo,
-		img {
-			height: 600px;
-			@include bp(3) {
-				height: 500px;
-			}
-			@include bp(2) {
-				height: 80vh;
-			}
+		&:after {
+			content: '';
+			display: table;
+			position: relative;
+			clear: both;
 		}
+
 		.photo {
-			margin-right: vw(10);
+			width: auto;
+			height: 500px;
 			background: white;
+			float: left;
 			@include bp(2) {
-				background: transparent;
+				float: none;
+				height: auto;
 				width: 100%;
-				margin-right: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+				margin-bottom: vw(30);
 			}
 			img {
 				width: auto;
+				height: 100%;
 				display: block;
-				opacity: 0.15;
+				margin: auto;
 				transition: all 0.3s ease-in-out;
 				@include bp(2) {
-					opacity: 1;
 					width: 100%;
 					height: auto;
 				}
 			}
 		}
-		.is-selected img {
-			opacity: 1;
-		}
-	}
-	.flickity-prev-next-button {
-		background: none;
-		width: 70px;
-		height: 70px;
-		svg {
-			position: absolute;
-			top: 0; left: 0;
-			width: 100%;
-			height: auto;
-			path {
-				fill: $color-gold-1;
-				@include bp(2) {
-					fill: white;
-				}
-			}
-		}
-		&.previous {
-			transform: scale(1, -1);
-			transform-origin: 50% 25%;
-		}
-	}
-	.flickity-prev-next-button.previous { left: vw(60); }
-	.flickity-prev-next-button.next { right: vw(60); }
-	.flickity-prev-next-button:disabled {
-		opacity: 0;
 	}
 }
 
@@ -953,7 +906,7 @@ section.registry {
 		margin-bottom: vw(60);
 		@include bp(2) {
 			padding: vw(90) vw(180) vw(90);
-			margin-bottom: 60px;
+			margin-bottom: vw(120);
 		}
 		&:before {
 			display: none;

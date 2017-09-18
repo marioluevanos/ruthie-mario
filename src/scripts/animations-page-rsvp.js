@@ -8,8 +8,22 @@ export default function() {
 					next();
 				}
 			})
+			.to('#page-rsvp', 1, {
+				autoAlpha: 0,
+				ease: Power2.easeOut
+			})
 		},
 		enter(context) {
+
+
+			let overlay = context.$el.querySelectorAll('.overlay');
+			// let monogram = context.$el.querySelectorAll('.monogram');
+			let text = context.$el.querySelectorAll('.inner p span');
+			let inputElem = context.$el.querySelectorAll('.input');
+
+			/* Collect all items in one array */
+			let textElemets = [text, inputElem].reduce((all, item) => all.concat(Array.from(item)), []);
+
 			return new TimelineMax({
 				onStart() {
 					document.querySelector('#page-rsvp .monogram').classList.add('not-entered');
@@ -17,7 +31,27 @@ export default function() {
 				onComplete() {
 					document.querySelector('#page-rsvp .monogram').classList.remove('not-entered');
 				}
-			})	
+			})
+			.to(overlay[0], 1, {
+				transformOrigin: '0% 50%',
+				scaleX: 0,
+				ease: Power4.easeOut
+			}, 'overlay')
+			.to(overlay[1], 1, {
+				transformOrigin: '100% 50%',
+				scaleX: 0,
+				ease: Power4.easeOut
+			}, 'overlay')
+			.staggerFromTo(textElemets.reverse(), 1, {
+				autoAlpha: 0,
+				y: -100,
+				ease: Power4.easeInOut
+			}, {
+				autoAlpha: 1,
+				y: 0,
+				ease: Power4.easeInOut
+			},
+			1/textElemets.length)
 		}
 	};
 };

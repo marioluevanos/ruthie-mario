@@ -8,12 +8,20 @@ export default function(context) {
 	let bubblesAnimation = drinkAnimation.bubblesAnimation;
 	let cupAnimation = drinkAnimation.cupAnimation;
 	let getElement = s => document.querySelector(s);
+
 	let textSaveTheDate = getElement('#title-save-the-date').children;
 	let textRM = getElement('#title-rm').children;
 	let textGettingMarried = getElement('#title-are-getting-married').children;
 	let textDate = getElement('#title-date').children;
 
-	let enterAnimation = new TimelineMax({
+	let allText = Array.from(textSaveTheDate)
+		.concat(
+			Array.from(textRM), 
+			Array.from(textGettingMarried), 
+			Array.from(textDate)
+		);	
+	
+	let introAnimation = new TimelineMax({
 		paused: true,
 		onComplete() {
 			diamondShineAnimation.play();
@@ -29,7 +37,6 @@ export default function(context) {
 		y: 0,
 		ease: Back.easeOut.config(1, 0.6)
 	}, 0.3/textSaveTheDate.length)
-
 	.staggerFromTo(Array.from(textRM).reverse(), 0.6, {
 		scaleX: 0,
 		y: -20,
@@ -97,7 +104,13 @@ export default function(context) {
 	}, {
 		y: 0,
 		ease: Bounce.easeOut
-	}, '-=0.75');
+	}, '-=0.75')
+	.staggerFromTo(allText, 1, {
+		fill: '#aa9c62'
+	}, {
+		fill: '#001f33',
+		ease: Power4.easeOut
+	}, 1/allText.length, 0.3);
 
 	return {
 		leave(next) {
@@ -106,8 +119,13 @@ export default function(context) {
 					next();
 				}
 			})
+			.to('#page-index', 1, {
+				autoAlpha: 0,
+				ease: Power2.easeOut
+			})
 		},
-		enter: enterAnimation
+		intro: introAnimation,
+		enter: introAnimation
 	};
 };
 

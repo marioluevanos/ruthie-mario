@@ -1,9 +1,8 @@
 <template lang='pug'>
-	nav
-		.icon-menu: include ../assets/images/icon-menu.svg
-		.nav-items
-			router-link(to='/') Home
-			router-link(to='/rsvp') RSVP
+	nav#nav
+		.texture-2
+		wedding-button(to='/') Home
+		wedding-button(to='/rsvp') RSVP
 </template>
 
 <script>
@@ -23,49 +22,41 @@
 	@import '../styles/vars.scss';
 	@import '../styles/mixins.scss';
 
-	nav {
-		position: fixed;
-		text-align: center;
-		top: 0;
-		right: 0;
-		height: vw(60);
-		width: vw(100);
-		display: flex;
-		background: $color-navy;
+	#nav {
+		display: none;
 		align-items: center;
 		justify-content: center;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: vw(240);
+		background: white;
 		z-index: 1337;
-		display: none;
-		a {
-			cursor: pointer;
-			text-decoration: none;
-			font: 1.125em/1 $font-bold;
-			margin: 0 vw(20);
-			display: block;
-			position: relative;
+		@include bp(2) {
+			display: flex;
 		}
-	}
-	.nav-items {
-		display: none;
-	}
-	.icon-menu {
-		width: 32px;
-		height: 32px;
-		cursor: pointer;
-		svg {
-			width: 100%;
-			display: block;
+		.wedding-button {
+			background: none;
+			width: 50%;
+			height: 100%;
+			padding: 0;
+			.border,
+			&:before {
+				display: none;
+			}
+			.text {
+				font-size: 6vw;
+			}
+			&:last-of-type {
+				border-left: 1px solid $color-gold-1;
+			}
 		}
-		.middle, .lines{
-			fill: $color-navy;
-		}
-		.middle {
-			transform: scale(0.7, 1);
-			transform-origin: 100% 50%;
-			transition: transform 0.15s ease-in-out;
-		}
-		&:hover .middle {
-			transform: scale(1, 1);
+		.texture-2 {
+			position: absolute;
+			top: vw(-25); right: 0; left: 0;
+			z-index: 0;
+			height: vw(25);
 		}
 	}
 </style>

@@ -61,12 +61,14 @@
 		background: lighten($color-navy, 0%);
 		padding: vw(40) vw(35) vw(35);
 		color: white;
-		font: normal 1.5em/1 $font-bold;
+		font: normal 1.5vw/1 $font-bold;
 		text-align: center;
 		z-index: 3;
 		@include bp(2) {
+			font-size: 4vw;
 			padding: vw(60) vw(45) vw(60);
-			right: 0;
+			right: vw(100);
+			top: vw(50);
 		}
 		&:before {
 			content: '';
@@ -76,10 +78,10 @@
 			z-index: 0;
 		}
 		.time-left {
-			font: normal 1.5em/0.6 $font-regular;
+			font: normal 3vw/0.6 $font-regular;
 			color: $color-gold-1;
 			@include bp(2) {
-				font-size: 2em;
+				font-size: 10vw;
 			}
 		}
 		span {

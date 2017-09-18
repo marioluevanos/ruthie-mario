@@ -1,11 +1,8 @@
 <template lang='pug'>
 	#app
-		loader(:doneLoading='doneLoading')
+		wedding-loader(:doneLoading='doneLoading')
 		wedding-image.flower-1(file='flower-1.png')
-		nav#nav-mobile
-			.texture-2
-			wedding-button(to='/') Home
-			wedding-button(to='/rsvp') RSVP
+		wedding-navigation
 		router-view
 </template>
 
@@ -16,8 +13,10 @@
 			doneLoading(imagesLoaded) {
 				if (imagesLoaded.isComplete) {
 					let loader = this.$el.querySelector('#loader');
+
 					loader.addEventListener('transitionend', () => loader.remove());
 					setTimeout(()=> document.body.classList.add('loaded'), 0);
+					window.scrollTo(0, 0);
 				}
 			}
 		}
@@ -30,7 +29,6 @@
 	@import './styles/mixins.scss';
 	@import './styles/grid.scss';
 	@import './styles/fonts.scss';
-	@import '../node_modules/flickity/css/flickity.css';
 
 	html {
 		width: 100%;
@@ -64,6 +62,9 @@
     	font-size: 3vw;
 		font-weight: normal;
 		margin: 0 0 vw(0);
+		@include bp(2) {
+			font-size: 6vw;
+		}
 	}
 	a {
 		color: $color-navy;
@@ -83,43 +84,7 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	#nav-mobile {
-		display: none;
-		align-items: center;
-		justify-content: center;
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: vw(240);
-		background: white;
-		z-index: 1337;
-		@include bp(2) {
-			display: flex;
-		}
-		.wedding-button {
-			background: none;
-			width: 50%;
-			height: 100%;
-			padding: 0;
-			.border,
-			&:before {
-				display: none;
-			}
-			.text {
-				font-size: 6vw;
-			}
-			&:last-of-type {
-				border-left: 1px solid $color-gold-1;
-			}
-		}
-		.texture-2 {
-			position: absolute;
-			top: vw(-25); right: 0; left: 0;
-			z-index: 0;
-			height: vw(25);
-		}
-	}
+	
 	.wedding-image[class*='ep-'] {
 		position: relative;
 		overflow: hidden;
@@ -135,6 +100,11 @@
 			height: 100%;
 			width: auto;
 			max-width: 100%;
+		}
+	}
+	.split-text {
+		> * {
+			overflow: hidden;
 		}
 	}
 	.texture-1 {
