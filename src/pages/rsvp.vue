@@ -47,6 +47,7 @@
 
 <script>
 	import Firebase from 'firebase';
+
 	import animations from '../scripts/animations-page-rsvp';
 	 
 	Firebase.initializeApp({
@@ -105,7 +106,8 @@
 							family: r1,
 							friends: r2,
 							total: r1 + r2
-						}
+						},
+						total: m1 + m2 + r1 + r2
 					};
 
 					/* This is just a hack to check the records of attendance objects */

@@ -31,19 +31,20 @@ export default function(controller) {
 		});
 
 		/* Apply a smooth transition to all the elements */
-		element.style.transition = 'all 0.15s linear';
+		element.style.transition = 'transform 0.15s linear';
+		element.style.willChange = 'transform';
+
 
 		let y1 = 
 			ifClassName('texture-header') 	? '20%' :
 			ifClassName('flower-2') 		? '50%' :
 			ifClassName('countdown') 		? '50%' :
 			ifClassName('texture-3') 		? '30%' :
-			ifClassName('icon-drink') 		? '50%' :
+			ifClassName('icon-drink') 		? '150%' :
 			ifClassName('flower-3') 		? '30%' : 
 			ifClassName('detail-inner') 	? '30%' :
 			ifClassName('google-map-wrap')	? '30%' : 
 			ifClassName('subtitle') 		? '0%' :
-			ifClassName('icon-birds') 		? '-50%' : 
 			ifClassName('photo-gallery') 	? '0%' : 
 			'0%';
 
@@ -52,12 +53,11 @@ export default function(controller) {
 			ifClassName('flower-2') 		? ' 10%' :
 			ifClassName('countdown') 		? '-100%' :
 			ifClassName('texture-3') 		? '-30%' :
-			ifClassName('icon-drink') 		? '-300%' :
+			ifClassName('icon-drink') 		? '-150%' :
 			ifClassName('flower-3') 		? '-30%' : 
 			ifClassName('detail-inner') 	? '-30%' :
 			ifClassName('google-map-wrap')	? '-60%' :
 			ifClassName('subtitle') 		? '-300%' : 
-			ifClassName('icon-birds') 		? '-200%' :
 			ifClassName('photo-gallery') 	? '-10%' :
 			'0%';
 
@@ -221,13 +221,7 @@ export default function(controller) {
 		autoAlpha: 1,
 		ease: Power2.easeOut
 	}, '-=0.45')
-	.fromTo('.proposal-video-poster', 1, {
-		scale: 1.01,
-		ease: Power2.easeIn
-	}, {
-		scale: 1.5,
-		ease: Power2.easeOut
-	}, '-=0.75')
+
 
 	new ScrollMagic.Scene({
 		triggerElement: 'section.she-said', 
@@ -242,7 +236,7 @@ export default function(controller) {
 		------------------------------------------------------ 
 	*/
 
-	let overlays = document.querySelectorAll('.overlay');
+	let overlays = document.querySelectorAll('#page-index .overlay');
 
 	Array.from(overlays).forEach(overlay => {
 		
@@ -250,29 +244,29 @@ export default function(controller) {
 		let overlayScene = new ScrollMagic.Scene({
 			triggerElement: overlay.parentElement,
 			duration: (window.innerHeight * 2),
-			triggerHook: 1,
+			triggerHook: 0.65,
 		});
 
 		let contains = className => overlay.parentElement.classList.contains(className);
 		var overlayFrom, overlayTo;
 
-		if (contains('google-map-wrap')) {
-			overlayFrom = 	{ scaleY: 0, ease: Power4.easeOut };
-			overlayTo = 	{ scaleY: 1, ease: Power4.easeIn, transformOrigin: '50% 100%' };
-		}
-		else if (contains('registry')) {
-			overlayFrom = 	{ scaleY: 0, ease: Power4.easeOut };
-			overlayTo = 	{ scaleY: 1, ease: Power4.easeIn, transformOrigin: '50% 100%' };
+		if (contains('proposal-video')) {
+			let videoPoster = document.querySelector('.proposal-video-poster');
+			overlayFrom = 	{ scaleY: 1, ease: Power4.easeIn, transformOrigin: '50% 100%' };
+			overlayTo = 	{ scaleY: 0, ease: Power4.easeOut, onComplete() {
+				if (videoPoster) {
+					videoPoster.classList.toggle('active');	
+				}
+			} };
 		}
 		else {
-			overlayFrom = 	{ };
-			overlayTo = 	{ };
+			overlayFrom = 	{ scaleY: 1, ease: Power4.easeIn, transformOrigin: '50% 100%' };
+			overlayTo = 	{ scaleY: 0, ease: Power4.easeOut };
 		}
 
-		overlayTimeline.fromTo(overlay, 1, overlayTo, overlayFrom);
+		overlayTimeline.fromTo(overlay, 2, overlayFrom, overlayTo);
 
 		overlayScene
-			// .addIndicators()
 			.on('enter leave', e => e.type === 'enter' ? overlayTimeline.play() : overlayTimeline.reverse())
 			.addTo(controller)
 	});
@@ -283,6 +277,7 @@ export default function(controller) {
 	*/
 
 	let galleryElement = document.querySelector('.photo-gallery');
+	let galleryLength = parseInt(galleryElement.children.length);
 	let galleryTimeline = new TimelineMax();
 	let galleryScene = new ScrollMagic.Scene({
 		triggerElement: '.photos',
@@ -290,14 +285,36 @@ export default function(controller) {
 		triggerHook: 0
 	});
 
+	let galleryCSS = {
+		'height': '100vh',
+		'display': 'flex',
+		'flex-direction': 'column',
+		'justify-content': 'space-between'
+	};
+	
+	let applyCSS = (element, css) => {
+		for(var prop in css) {
+			element.style[prop] = css[prop];
+		}
+	};
 
-	galleryTimeline.fromTo('.photo-gallery', parseInt(galleryElement.children.length), {
+	applyCSS(document.querySelector('section.photos'), galleryCSS);
+
+	galleryTimeline
+	.fromTo('.photo-gallery', 0.1, {
+		autoAlpha: 0,
+		ease: Power4.easeIn
+	}, {
+		autoAlpha: 1,
+		ease: Power4.easeOut
+	})
+	.fromTo('.photo-gallery', 1, {
 		x: '0',
 		ease: Power0.easeNone
 	}, {
-		x: '-100%',
+		x: '-90%',
 		ease: Power0.easeNone
-	});
+	}, '-=0.1');
 
 	galleryScene
 		.setPin('.photos')

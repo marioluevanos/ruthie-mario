@@ -15,6 +15,11 @@
         "source": "/rsvp",
         "destination": "https://www.ruthie-mario.love/#/rsvp",
         "type": 302
+      },
+      {
+        "source": "/RSVP",
+        "destination": "https://www.ruthie-mario.love/#/rsvp",
+        "type": 302
       }
     ],
     "cleanUrls": true

@@ -2,8 +2,16 @@
 	{
 		"1027luevanos":  {
 			"name": "Mario & Betha Luevanos",
-			"count": 3,
+			"count": 4,
 			"origin": "mario",
+			"relationship": "family"
+		}
+	},
+	{
+		"collinsmg1027":  {
+			"name": "Malcom & Gladys Collins",
+			"count": 3,
+			"origin": "ruthie",
 			"relationship": "family"
 		}
 	},
@@ -34,7 +42,7 @@
 	{
 		"1027aluevanos":  {
 			"name": "Annabel Luevanos",
-			"count": 1,
+			"count": 2,
 			"origin": "mario",
 			"relationship": "family"
 		}
@@ -50,7 +58,7 @@
 	{
 		"2017eluevanos":  {
 			"name": "Evelia Luevanos",
-			"count": 1,
+			"count": 2,
 			"origin": "mario",
 			"relationship": "family"
 		}
@@ -241,7 +249,7 @@
 	},
 	{
 		"cortez1027": {
-			"name": "Morgan Cortez and Tia Morena",
+			"name": "Morgan Cortez",
 			"count": 2,
 			"origin": "ruthie",
 			"relationship": "family"
@@ -272,9 +280,9 @@
 		}
 	},
 	{
-		"mandocindy1027": {
+		"1027mandocindy": {
 			"name": "Mando & Cindy Robles",
-			"count": 2,
+			"count": 3,
 			"origin": "ruthie",
 			"relationship": "friend"
 		}
@@ -362,7 +370,7 @@
 	{
 		"1027mercedes": {
 			"name": "Mercedes DeHernandez",
-			"count": 1,
+			"count": 2,
 			"origin": "ruthie",
 			"relationship": "family"
 		}
@@ -409,7 +417,7 @@
 	},
 	{
 		"1027bluevanos": {
-			"name": "Bridget  & Josh Gressel",
+			"name": "Bridget & Josh Gressel",
 			"count": 2,
 			"origin": "mario",
 			"relationship": "family"
@@ -504,8 +512,8 @@
 		}
 	},
 	{
-		"jwiles1027": {
-			"name": "Julie Marksfield ",
+		"1027jmarkfield": {
+			"name": "Julie Markfield & Greg Crawford",
 			"count": 2,
 			"origin": "ruthie",
 			"relationship": "friend"
@@ -522,7 +530,7 @@
 	{
 		"johngrecia1027": {
 			"name": "John and Grecia Collins",
-			"count": 2,
+			"count": 2,	
 			"origin": "ruthie",
 			"relationship": "family"
 		}

@@ -246,13 +246,18 @@
 		}
 
 		h3 {
-			font-size: 1.5vw;
+			font-size: 1.75vw;
 			color: $color-gold-1;
 			margin: 0;
+			@include bp(3) {
+				font-size: 2vw;
+				margin-top: 0;
+			}
 			@include bp(2) {
 				font-size: 6vw;
 				margin-top: 0;
 			}
+			
 		}
 		address {
 			display: block;

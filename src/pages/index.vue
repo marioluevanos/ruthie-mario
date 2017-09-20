@@ -5,14 +5,19 @@
 		.col
 			wedding-monogram
 			wedding-image.ep-1(file='ep-1.jpg', className='scroll-anim ep-1')
+				.overlay-header
 			.texture-header.scroll-anim
 				.texture-1.img-preload
+					.overlay-header
+
 		.col
 			.text
 				.icon-ring: include ../assets/images/icon-ring.svg
 				.title: include ../assets/images/title.svg
 				wedding-button(to='/rsvp') RSVP
 			.texture-2.img-preload
+				.overlay-header
+				
 	section.how-we-met
 		.cols
 			.col
@@ -28,7 +33,9 @@
 				wedding-countdown.scroll-anim
 				wedding-image.flower-2.scroll-anim(file='flower-2.png')
 				wedding-image.ep-2(file='ep-2.jpg', className='scroll-anim ep-2')
+					.overlay
 				.texture-3.scroll-anim.img-preload
+					.overlay
 				.icon-drink.scroll-anim
 					include ../assets/images/icon-drinks.svg
 					include ../assets/images/icon-drinks.svg
@@ -41,6 +48,7 @@
 					//- wedding-image.flower-3.scroll-anim(file='flower-3.png')
 					wedding-image.glitter(file='glitter.png')
 				.proposal-video
+					.overlay
 					button#play-button(@click='playVideo')
 						include ../assets/images/icon-play.svg
 					.proposal-video-poster
@@ -51,11 +59,10 @@
 	section.photos
 		.text
 			h3.subtitle: span.split-text Engagement Photos
-			.icon-birds.scroll-anim: include ../assets/images/icon-birds.svg
+			.icon-birds: include ../assets/images/icon-birds.svg
 		.photo-gallery
 			wedding-image.photo(v-for='(photo, index) in gallery' :key='index' :file='photo')
 	section.registry
-		.overlay
 		.texture-2.img-preload
 		wedding-image.flower-4(file='flower-4.png')
 		.cols
@@ -98,7 +105,9 @@
 			};
 		},
 		beforeRouteLeave(to, from, next) {
-			return !ifMobile() ? scrollUp(()=> this.animations.leave(next)) : this.animations.leave(next);
+			return !ifMobile() ? 
+				scrollUp(()=> this.animations.leave(next)) : 
+				this.animations.leave(next);
 		},
 		mounted() {
 
@@ -115,12 +124,20 @@
 			this.$parent.imagesLoaded.on('done', ()=> {
 				if (!ifMobile()) {
 					this.resizeGallery();
+					window.addEventListener('resize', this.resizeGallery.bind(this));
 				}
+				
 				this.animations.intro.delay(1).timeScale(1.3).play();
+				this.animations.enter.play();
 			});
 
 			if (this.$parent.imagesLoaded.isComplete) {
-				this.animations.enter.timeScale(1).play();	
+
+				this.animations.intro.delay(1).timeScale(1.3).play();
+				this.animations.enter.play();
+				if (!ifMobile()) {
+					this.resizeGallery();
+				}
 			}
 
 		},
@@ -128,9 +145,16 @@
 			resizeGallery() {
 				let gallery = this.$el.querySelector('.photo-gallery');
 				let photos = gallery.children;
-				let galleryWidth = Array.from(photos).reduce((all, item) => all += item.clientWidth, 1) + 'px';
-			
-				gallery.style.width = galleryWidth;
+
+				let galleryWidth = Array
+					.from(photos)
+					.reduce((all, item) => all += item.clientWidth, 1);
+
+				let galleryMargins = Array
+					.from(photos)
+					.reduce((all, item) => all += parseInt(getComputedStyle(item).marginRight.replace(/px/,'')), 0);
+
+				gallery.style.width = (galleryWidth + galleryMargins) + 'px';
 			},
 			playVideo() {
 				this.$el.querySelector('video').play();
@@ -153,7 +177,7 @@
 	position: absolute;
 	top: -1px; right: -1px; bottom: -1px; left: -1px;
 	background: white;
-	z-index: 1;
+	z-index: 2;
 }
 
 section.header {
@@ -165,6 +189,12 @@ section.header {
 		display: block;
 		top: -1px;
 		padding-top: 1px;
+	}
+	.overlay-header {
+		position: absolute;
+		top: 0; right: 0; bottom: 0; left: 0;
+		background: white;
+		z-index: 3;
 	}
 	.icon-ring {
 		width: vw(100);
@@ -662,8 +692,6 @@ section.she-said {
 		padding: 0;
 		display: block;
 		margin: auto;
-		overflow: hidden;
-		box-shadow: 0 30px 60px rgba(black, 0.3);
 		@include bp(2) {
 			width: 100%;
 		}
@@ -710,6 +738,12 @@ section.she-said {
 			transform: rotate(135deg);
 		}
 	}
+	.overlay {
+		top: -1vw;
+		right: -1vw;
+		bottom: -1vw;
+		left: -1vw;
+	}
 	.proposal-video-poster,
 	video {
 		position: relative;
@@ -724,6 +758,18 @@ section.she-said {
 		box-shadow: none;
 		transform: scale(1.01);
 		background: url('../assets/images/video-cover.jpg') 50% 50%/cover no-repeat;
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0; left: 0; width: inherit; height: 100%;
+			opacity: 0;
+			box-shadow: 0 30px 60px rgba(black, 0.3);
+			transition: opacity 0.3s ease-in-out;
+			z-index: 1;
+		}
+		&.active:before {
+			 opacity: 1;
+		}
 	}
 }
 
@@ -754,7 +800,11 @@ section.photos {
 	z-index: 1;
 	.text {
 		position: relative;
-		padding: vw(40) vw(240) vw(30);
+		padding: 0 vw(240) 0;
+		height: 20vh;
+		display: flex;
+		align-items: center;
+
 		@include bp(2) {
 			display: flex;
 			align-items: center;
@@ -763,6 +813,7 @@ section.photos {
 			padding: 0;
 		}
 		.subtitle {
+			line-height: 1;
 			position: relative;
 			@include bp(2) {
 				text-align: center;	
@@ -772,10 +823,10 @@ section.photos {
 	}
 	.icon-birds {
 		position: absolute;
-		width: vw(150);
+		width: vw(110);
 		height: auto;
-		left: vw(80);
-		top: 150%;
+		left: vw(600);
+		top: 23%;
 		transform: translate(0, 0%);
 		@include bp(2) {
 			width: 40%;
@@ -822,7 +873,8 @@ section.photos {
 
 		.photo {
 			width: auto;
-			height: 500px;
+			height: 80vh;
+			margin-right: 60px;
 			background: white;
 			float: left;
 			@include bp(2) {
