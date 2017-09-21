@@ -300,6 +300,51 @@ export default function(controller) {
 
 	applyCSS(document.querySelector('section.photos'), galleryCSS);
 
+	const flyBirdTimeline = (element) => {
+
+		let birdy = document.querySelector(element);
+		let birdyImg = birdy.querySelector('img');
+		
+		let birdFlapTimeline = new TimelineMax({
+			paused: true,
+			repeat: -1,
+		})
+		.fromTo(birdyImg, 1, {
+			x: 0,
+			ease: SteppedEase.config(7)
+		}, {
+			x: -(150 * 7),
+			ease: SteppedEase.config(7)
+		});
+
+		let birdMoveTimeline = new TimelineMax({
+			paused: true
+		})
+		.fromTo(birdy, 0.3, {
+			autoAlpha: 0,
+			ease: Power4.easeIn
+		}, {
+			autoAlpha: 1,
+			ease: Power4.easeOut
+		}, 0)
+		.fromTo(birdy, 1, {
+			x: '-200%',
+			ease: Power0.easeNone
+		}, {
+			x: '1500%',
+			ease: Power0.easeNone
+		}, '-=0.3');
+
+		return {
+			move: birdMoveTimeline,
+			flap: birdFlapTimeline
+		};
+	};
+
+	let birdMario = flyBirdTimeline('.birdy.mario');
+	let birdRuthie = flyBirdTimeline('.birdy.ruthie');
+
+
 	galleryTimeline
 	.fromTo('.photo-gallery', 0.1, {
 		autoAlpha: 0,
@@ -318,6 +363,16 @@ export default function(controller) {
 
 	galleryScene
 		.setPin('.photos')
+		.on('progress', ({ progress }) => {
+
+			let tardyTime = progress - 0.1;
+
+			birdRuthie.move.progress(progress);
+			birdRuthie.flap.progress(progress * 9);
+
+			birdMario.move.progress(tardyTime);
+			birdMario.flap.progress(tardyTime * 10);
+		})
 		.setTween(galleryTimeline)
 		.addTo(controller)
 

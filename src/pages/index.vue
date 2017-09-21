@@ -45,7 +45,6 @@
 			include ../assets/images/subtitle-she-said-yes.svg
 			.proposal
 				.proposal-bg
-					//- wedding-image.flower-3.scroll-anim(file='flower-3.png')
 					wedding-image.glitter(file='glitter.png')
 				.proposal-video
 					.overlay
@@ -59,7 +58,11 @@
 	section.photos
 		.text
 			h3.subtitle: span.split-text Engagement Photos
-			.icon-birds: include ../assets/images/icon-birds.svg
+			p.scroll-rise At Disney Concert Hall in Downtown Los Angeles. Photography by #[a(href='https://timeonfilm.com/', target='_blank') Charles Ng.]
+			
+			.birdy.mario: wedding-image(file='birdy-mario.png')
+			.birdy.ruthie: wedding-image(file='birdy-ruthie.png')
+
 		.photo-gallery
 			wedding-image.photo(v-for='(photo, index) in gallery' :key='index' :file='photo')
 	section.registry
@@ -148,7 +151,7 @@
 
 				let galleryWidth = Array
 					.from(photos)
-					.reduce((all, item) => all += item.clientWidth, 1);
+					.reduce((all, item) => all += item.clientWidth, 10);
 
 				let galleryMargins = Array
 					.from(photos)
@@ -799,61 +802,75 @@ section.photos {
 	position: relative;
 	z-index: 1;
 	.text {
-		position: relative;
+		
 		padding: 0 vw(240) 0;
 		height: 20vh;
 		display: flex;
 		align-items: center;
+		position: static;
 
 		@include bp(2) {
+
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			flex-direction: column-reverse;
+			flex-direction: column;
+			text-align: center;
+			width: 90%;
+			margin: auto;
 			padding: 0;
 		}
 		.subtitle {
 			line-height: 1;
 			position: relative;
+			white-space: nowrap;
+			width: 45%;
+			margin-right: 5%;
 			@include bp(2) {
 				text-align: center;	
-				margin-bottom: vw(120);
+				margin-bottom: vw(30);
+			}
+		}
+		p {
+			width: 50%;
+			margin: 0;
+			@include bp(2) {
+				width: auto;
+			}
+		}
+		a {
+			text-decoration: none;
+			border-bottom: 1px solid $color-gold-1;
+			&:hover {
+				border-color: $color-navy;
 			}
 		}
 	}
-	.icon-birds {
+	.birdy {
 		position: absolute;
-		width: vw(110);
-		height: auto;
-		left: vw(600);
-		top: 23%;
-		transform: translate(0, 0%);
+		width: 150px;
+		height: 150px;
+		overflow: hidden;
+		left: 0;
+		bottom: 0;
+		z-index: 1337;
 		@include bp(2) {
-			width: 40%;
-			margin: vw(30) auto vw(180);
-			top: initial;
-			right: initial;
+			display: none;
+		}
+		figure {
+			position: absolute;
+			width: 100%; height: 100%;
+			top: 0; right: 0; bottom: 0; left: 0;
+		}
+		img {
+			width: auto;
+			height: 150px;
+			position: absolute;
+			top: 0;
 			left: 0;
-			transform: none;
-			position: relative;
+			will-change: transform;
 		}
-		svg {
-			width: 100%;
-			display: block;
-			overflow: visible;
-		}
-		.st0{fill:none;stroke:#AA9C62;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
-		.st1{fill:#E6FEFF;stroke:#AA9C62;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
-		.st2{fill:#E6FEFF;stroke:#AA9C62;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-		.st3{fill:#A99D62;stroke:#A99D62;stroke-linejoin:round;stroke-miterlimit:10;}
-		.st4{fill:#F7EBF1;stroke:#AA9C62;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
-		svg .st0,
-		svg .st1,
-		svg .st2,
-		svg .st3,
-		svg .st4 {
-			stroke-width: 2;
-		}
+
 	}
 
 	.photo-gallery {
@@ -873,8 +890,9 @@ section.photos {
 
 		.photo {
 			width: auto;
-			height: 80vh;
+			height: 70vh;
 			margin-right: 60px;
+			margin-bottom: 10vh;
 			background: white;
 			float: left;
 			@include bp(2) {
