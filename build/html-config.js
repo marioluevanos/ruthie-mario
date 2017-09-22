@@ -15,6 +15,10 @@ module.exports = {
     	content: 'Ruthie & Mario’s Wedding Day'
     },
     {
+    	name: 'viewport',
+    	content: 'width=device-width'
+    },
+    {
     	property: 'og:type',
         content: 'website'
     },

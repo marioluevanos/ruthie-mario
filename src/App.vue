@@ -50,7 +50,7 @@
 		@include bp(3) {
 			font-size: 18px;
 		}
-		@include bp(1) {
+		@include bp(2) {
 			font-size: 24px;
 			width: 100vw;
 			overflow-x: hidden; 

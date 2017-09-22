@@ -1,21 +1,29 @@
 @mixin bp($point) {
-	$bp-0: "(max-width:459px)";
-	$bp-1: "(max-width:767px)";
-	$bp-2: "(max-width:1023px)";
-	$bp-3: "(max-width:1365px)";
-	$bp-4: "(max-width:1649px)";
-
-	@if $point == 0 {
-		@media screen and #{$bp-0} { @content; }
-	} @else if $point == 1 {
-		@media screen and #{$bp-1} { @content; }
-	} @else if $point == 2 {
-		@media screen and #{$bp-2}  { @content; }
-	} @else if $point == 3 {
-		@media screen and #{$bp-3}  { @content; }
-	} @else if $point == 4 {
-		@media screen and #{$bp-4}  { @content; }
+	// $bp-0: "(max-width:450px)";
+	// $bp-1: "(max-width:760px)";
+	$bp-2: "(max-width: 767px)";
+	// $bp-3: "(max-width:1300px)";
+	// $bp-4: "(max-width:1649px)";
+	@if $point == 2 {
+		@media screen and #{$bp-2} { @content; }
 	}
+	// $bp-0: "(max-width:450px)";
+	// $bp-1: "(max-width:760px)";
+	// $bp-2: "(max-width:1000px)";
+	// $bp-3: "(max-width:1300px)";
+	// $bp-4: "(max-width:1649px)";
+
+	// @if $point == 0 {
+	// 	@media screen and #{$bp-0} { @content; }
+	// } @else if $point == 1 {
+	// 	@media screen and #{$bp-1} { @content; }
+	// } @else if $point == 2 {
+	// 	@media screen and #{$bp-2}  { @content; }
+	// } @else if $point == 3 {
+	// 	@media screen and #{$bp-3}  { @content; }
+	// } @else if $point == 4 {
+	// 	@media screen and #{$bp-4}  { @content; }
+	// }
 }
 
 @function vw($px) {
