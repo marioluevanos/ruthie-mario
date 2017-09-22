@@ -366,7 +366,7 @@
 					top: 0;
 					display: flex;
 					width: 100%;
-					height: $nav-height;
+					height: $nav-height / 4;
 				}
 			}
 		}
@@ -544,6 +544,7 @@
 					color: $color-gold-1;
 					transform: scale(1) translate(0, -100%);
 					transition: all 0.3s $ease-in-out-p0 0.6s;
+					opacity: 0;
 					z-index: 0;
 					@include bp(2) {
 						font-size: 6vw;

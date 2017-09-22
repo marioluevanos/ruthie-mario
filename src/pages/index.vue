@@ -153,7 +153,10 @@
 	top: -1px; right: -1px; bottom: -1px; left: -1px;
 	background: white;
 	z-index: 2;
-	@include bp(3) {
+}
+
+#page-index .overlay {
+	@include bp(2) {
 		display: none;
 	}
 }

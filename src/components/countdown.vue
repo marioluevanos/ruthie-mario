@@ -73,7 +73,7 @@
 		&:before {
 			content: '';
 			position: absolute;
-			top: 10px; right: 10px; bottom: 10px; left: 10px;
+			top: vw(10); right: vw(10); bottom: vw(10); left: vw(10);
 			border: 2px solid rgba(white, 0.15);
 			z-index: 0;
 		}
@@ -81,7 +81,7 @@
 			font: normal 3vw/0.6 $font-regular;
 			color: $color-gold-1;
 			@include bp(2) {
-				font-size: 10vw;
+				font-size: 8vw;
 			}
 		}
 		span {

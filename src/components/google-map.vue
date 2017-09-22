@@ -219,11 +219,6 @@
 		}
 	}
 
-	.overlay {
-		@include bp(2) {
-			display: none;
-		}
-	}
 	.google-map-text {
 		text-align: left;
 		width: 50%;

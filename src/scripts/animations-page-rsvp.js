@@ -8,28 +8,27 @@ export default function() {
 					next();
 				}
 			})
-			.to('#page-rsvp', 1, {
+			.to('#page-rsvp', 0.6, {
 				autoAlpha: 0,
 				ease: Power2.easeOut
 			})
 		},
 		enter(context) {
 
-
-			let overlay = context.$el.querySelectorAll('.overlay');
-			let text = context.$el.querySelectorAll('.inner p span');
-			let inputElem = context.$el.querySelectorAll('.input');
+			let ctx = context.$el;
+			let overlay = ctx.querySelectorAll('.overlay');
+			let text = ctx.querySelectorAll('.inner p span');
+			let step1Button = ctx.querySelector('.step-1-button');
+			let inputElement = ctx.querySelector('#rsvp-input');
+			let inputPlaceholder = ctx.querySelector('.input-placeholder');
 
 			/* Collect all items in one array */
-			let textElemets = [text, inputElem].reduce((all, item) => all.concat(Array.from(item)), []);
+			let textElemets = [text].reduce((all, item) => all.concat(Array.from(item)), []);
 
 			return new TimelineMax({
 				onStart() {
 					document.querySelector('.monogram').classList.add('not-entered');
 				},
-				onComplete() {
-					document.querySelector('.monogram').classList.remove('not-entered');
-				}
 			})
 			.to(overlay[0], 1, {
 				transformOrigin: '100% 50%',
@@ -41,16 +40,46 @@ export default function() {
 				scaleX: 0,
 				ease: Power4.easeIn
 			}, 'overlay+=0.15')
-			.staggerFromTo(textElemets.reverse(), 1, {
+
+			.staggerFromTo(textElemets, 0.6, {
 				autoAlpha: 0,
-				y: -100,
-				ease: Power4.easeInOut
+				y: 60,
+				ease:Back.easeOut.config(1)
 			}, {
 				autoAlpha: 1,
 				y: 0,
-				ease: Power4.easeInOut
+				ease:Back.easeOut.config(1)
 			},
-			1/textElemets.length)
+			0.6/textElemets.length)
+			.fromTo(inputElement, 0.3, {
+				scaleX: 0,
+				ease: Back.easeOut.config(1)
+			}, {
+				scaleX: 1,
+				ease: Back.easeOut.config(1)
+			}, 'last')
+			.fromTo(step1Button, 0.3, {
+				autoAlpha: 0,
+				ease: Back.easeOut.config(1)
+			}, {
+				autoAlpha: 1,
+				ease: Back.easeOut.config(1)
+			}, 'last')
+			.fromTo(inputPlaceholder, 0.3, {
+				autoAlpha: 0,
+				ease: Back.easeOut.config(1)
+			}, {
+				autoAlpha: 1,
+				ease: Back.easeOut.config(1),
+				onComplete() {
+					setTimeout(()=> {
+						document.querySelector('.monogram').classList.remove('not-entered');
+					}, 400);
+					
+				}
+			}, 'last')
+			
+
 		}
 	};
 };

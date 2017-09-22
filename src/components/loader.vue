@@ -65,9 +65,10 @@
 
 	.loader-icon {
 		display: block;
-		margin: 0 auto;
+		margin: 0 auto vw(30);
 		width: vw(120);
 		height: vw(120);
+		transform: scale(1.5);
 		.monogram-text {
 			fill: $color-navy;
 		}
@@ -95,7 +96,7 @@
 			display: block;
 		}
 		.number {
-			font: normal 5em/1 $font-bold;
+			font: normal 10vw/1 $font-bold;
 		}
 	}
 
@@ -106,10 +107,13 @@
 	}
 
 	/* Loaded */
+
 	body.loaded {
+
 		#loader {
 			opacity: 0;
 		}
+
 		.img-preload {
 			opacity: 1;
 			visibility: visible;

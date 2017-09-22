@@ -13,14 +13,12 @@ export default function(context) {
 	let bubblesAnimation = drinkAnimation.bubblesAnimation;
 	let cupAnimation = drinkAnimation.cupAnimation;
 	let getElement = s => document.querySelector(s);
-
 	let textSaveTheDate = getElement('#title-save-the-date').children;
 	let textRM = getElement('#title-rm').children;
 	let textGettingMarried = getElement('#title-are-getting-married').children;
 	let textDate = getElement('#title-date').children;
-
 	let overlayHeader = document.querySelectorAll('.overlay-header');
-
+	
 	let allText = Array.from(textSaveTheDate)
 	.concat(
 		Array.from(textRM),
@@ -55,8 +53,7 @@ export default function(context) {
 	}, {
 		scaleX: 0,
 		ease: Power4.easeOut
-	}, '-=0.5')
-
+	}, '-=0.5');
 
 	let introAnimation = new TimelineMax({
 		paused: true,
@@ -154,7 +151,7 @@ export default function(context) {
 					next();
 				}
 			})
-			.to('#page-index', 1, {
+			.to('#page-index', 0.6, {
 				autoAlpha: 0,
 				ease: Power2.easeOut
 			})
@@ -273,11 +270,4 @@ function drinkAnimations(context) {
 		cupAnimation,
 		bubblesAnimation
 	};
-}
-
-
-function birdsAnimations(context) {
-
-	let birds = context.$el.querySelector('.bubbles').children;
-	
 }
