@@ -1,6 +1,5 @@
 <template lang='pug'>
 #page-index
-
 	section.header
 		.col
 			wedding-monogram
@@ -117,22 +116,18 @@
 			/* Attatch initialization to the Vue component */
 			this.animations = animations(this);
 
+			const animateAll = () => {
+				this.animations.intro.delay(1).timeScale(1.3).play();
+				this.animations.enter.play();
+			};
+
 			/* Only use ScrollMagic if not mobile device  */
-			if (!ifMobile()) {
-				this.bodyController = new ScrollMagic.Controller();
-				animationsScroll(this.bodyController);
-			}
+			this.bodyController = new ScrollMagic.Controller();
+			animationsScroll(this.bodyController);
 
 			/* Initialize after all the images have been loaded */
-			this.$parent.imagesLoaded.on('done', ()=> {
-				this.animations.intro.delay(1).timeScale(1.3).play();
-				this.animations.enter.play();
-			});
-
-			if (this.$parent.imagesLoaded.isComplete) {
-				this.animations.intro.delay(1).timeScale(1.3).play();
-				this.animations.enter.play();
-			}
+			this.$parent.imagesLoaded.on('done', () => animateAll() );
+			if (this.$parent.imagesLoaded.isComplete) { animateAll() }
 
 		},
 		methods: {
@@ -158,6 +153,9 @@
 	top: -1px; right: -1px; bottom: -1px; left: -1px;
 	background: white;
 	z-index: 2;
+	@include bp(3) {
+		display: none;
+	}
 }
 
 section.header {

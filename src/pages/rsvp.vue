@@ -535,14 +535,14 @@
 				}
 				.input-placeholder {
 					position: absolute;
-					font-size: 1.5em;
+					font-size: 1.875vw;
 					opacity: 1;
 					text-align: center;
 					top: 50%; left: 0; right: 0;
 					transform-origin: 50% 0;
 					font-family: $font-bold;
 					color: $color-gold-1;
-					transform: scale(1) translate(0, -50%);
+					transform: scale(1) translate(0, -100%);
 					transition: all 0.3s $ease-in-out-p0 0.6s;
 					z-index: 0;
 					@include bp(2) {

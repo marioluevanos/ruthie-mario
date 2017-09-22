@@ -290,6 +290,7 @@
 		.wedding-button {
 			margin-top: vw(30);
 			padding: vw(20) vw(40);
+			white-space: nowrap;
 			@include bp(2) {
 				margin-top: vw(120);
 				padding: vw(60) vw(60);
@@ -300,6 +301,7 @@
 				display: none;
 			}
 			span {
+				font-size: 3vw;
 				text-transform: uppercase;
 				border-color: $color-gold-1;
 				color: $color-gold-1;

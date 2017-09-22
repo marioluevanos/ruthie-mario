@@ -1,9 +1,9 @@
 @mixin bp($point) {
-	$bp-0: "(max-width:460px)";
-	$bp-1: "(max-width:768px)";
-	$bp-2: "(max-width:1024px)";
-	$bp-3: "(max-width:1366px)";
-	$bp-4: "(max-width:1650px)";
+	$bp-0: "(max-width:459px)";
+	$bp-1: "(max-width:767px)";
+	$bp-2: "(max-width:1023px)";
+	$bp-3: "(max-width:1365px)";
+	$bp-4: "(max-width:1649px)";
 
 	@if $point == 0 {
 		@media screen and #{$bp-0} { @content; }

@@ -11,7 +11,7 @@ export function scrollUp(cb) {
 }
 
 export function ifMobile() {
-	return navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
+	return navigator.userAgent.match(/Android|BlackBerry|iPhone|iPod|Opera Mini|IEMobile/i);
 }
 
 /*	
