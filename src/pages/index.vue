@@ -125,40 +125,17 @@
 
 			/* Initialize after all the images have been loaded */
 			this.$parent.imagesLoaded.on('done', ()=> {
-				if (!ifMobile()) {
-					this.resizeGallery();
-					window.addEventListener('resize', this.resizeGallery.bind(this));
-				}
-				
 				this.animations.intro.delay(1).timeScale(1.3).play();
 				this.animations.enter.play();
 			});
 
 			if (this.$parent.imagesLoaded.isComplete) {
-
 				this.animations.intro.delay(1).timeScale(1.3).play();
 				this.animations.enter.play();
-				if (!ifMobile()) {
-					this.resizeGallery();
-				}
 			}
 
 		},
 		methods: {
-			resizeGallery() {
-				let gallery = this.$el.querySelector('.photo-gallery');
-				let photos = gallery.children;
-
-				let galleryWidth = Array
-					.from(photos)
-					.reduce((all, item) => all += item.clientWidth, 10);
-
-				let galleryMargins = Array
-					.from(photos)
-					.reduce((all, item) => all += parseInt(getComputedStyle(item).marginRight.replace(/px/,'')), 0);
-
-				gallery.style.width = (galleryWidth + galleryMargins) + 'px';
-			},
 			playVideo() {
 				this.$el.querySelector('video').play();
 				this.$el.querySelector('.proposal-video-poster').style.display = 'none';

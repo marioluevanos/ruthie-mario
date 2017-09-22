@@ -275,10 +275,36 @@ export default function(controller) {
 		Gallery
 		------------------------------------------------------ 
 	*/
+	
 
 	let galleryElement = document.querySelector('.photo-gallery');
 	let galleryLength = parseInt(galleryElement.children.length);
-	let galleryTimeline = new TimelineMax();
+	
+	const resizeGallery = () => {
+		let gallery = galleryElement;
+		let photos = gallery.children;
+
+		let galleryWidth = Array
+			.from(photos)
+			.reduce((all, item) => all += item.clientWidth, 10);
+
+		let galleryMargins = Array
+			.from(photos)
+			.reduce((all, item) => all += parseInt(getComputedStyle(item).marginRight.replace(/px/,'')), 0);
+
+		gallery.style.width = (galleryWidth + galleryMargins) + 'px';
+	};
+
+	let galleryTimeline = new TimelineMax({
+		onStart() {
+			resizeGallery();
+			window.addEventListener('resize', resizeGallery);
+		},
+		onComplete() {
+			window.removeEventListener('resize', resizeGallery, true);
+		}
+	});
+
 	let galleryScene = new ScrollMagic.Scene({
 		triggerElement: '.photos',
 		duration: (galleryElement.children.length * 100) + '%',

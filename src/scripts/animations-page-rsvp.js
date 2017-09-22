@@ -25,10 +25,10 @@ export default function() {
 
 			return new TimelineMax({
 				onStart() {
-					document.querySelector('#page-rsvp .monogram').classList.add('not-entered');
+					document.querySelector('.monogram').classList.add('not-entered');
 				},
 				onComplete() {
-					document.querySelector('#page-rsvp .monogram').classList.remove('not-entered');
+					document.querySelector('.monogram').classList.remove('not-entered');
 				}
 			})
 			.to(overlay[0], 1, {

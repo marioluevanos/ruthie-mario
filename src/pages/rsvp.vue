@@ -265,13 +265,6 @@
 		},
 		beforeRouteLeave(to, from, next) {
 			this.animations.leave(next);
-		},
-		watch: {
-			'$route'(to, from) {
-
-				console.log(this.$parent.imagesLoaded, this.$route);
-
-			}
 		}
 	}
 </script>
