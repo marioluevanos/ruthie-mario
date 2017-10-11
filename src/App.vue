@@ -78,6 +78,12 @@
 		}
 		
 	}
+
+	// .overlay,
+	// .overlay-header {
+	// 	display: none !important;
+	// }
+
 	#app {
 		position: relative;
 		min-height: 100%;

@@ -78,7 +78,8 @@
 								origin: guestObject.origin,
 								relationship: guestObject.relationship,
 								count: guestObject.count,
-								name: guestObject.name
+								name: guestObject.name,
+								attending: guestObject.attending
 							});
 							return all;
 						}
@@ -110,12 +111,25 @@
 						total: m1 + m2 + r1 + r2
 					};
 
-					/* This is just a hack to check the records of attendance objects */
-					document.addEventListener('click', e => {
-						if (e.target.classList.contains('texture-2')) {
-							console.log(overview);
+					let attendance = attendanceOrigin
+					.filter(guest => {
+						if (guest.attending) {
+							let count = guest.count;
+							let name = guest.name;
+							let attending = guest.attending;
+							return Object.assign({}, { count, name, attending });
 						}
+					})
+					.map(guest => {
+						return {
+							count: guest.count,
+							name: guest.name,
+							attending: guest.attending
+						};
 					});
+
+					/* This is just a hack to check the records of attendance objects */
+					document.addEventListener('click', () => window.attendance = attendance);
 				}
 			}
 		},
@@ -180,14 +194,27 @@
 			},
 			createGuestOptions(count) {
 				let optionArray = [];
+
 				for (let i = 0; i <= count; i++) {
 					let optionsElement = document.createElement('option');
 					optionsElement.value = i === 0 ? '' : i;
 					optionsElement.innerHTML = 
 						i === 0 ? 'Select the number of guests' : 
 						i === 1 ? i + ' Guest' : i + ' Guests';
+
 					optionArray.push(optionsElement);
 				}
+				
+				const cantGoOption = () => {
+					let optionsElement = document.createElement('option');
+					optionsElement.value = 0;
+					optionsElement.innerHTML = '0 Sorry, can’t attend.'
+					return optionsElement;
+				};
+
+				// Add for can't attend
+				optionArray.splice(1, 0, cantGoOption());
+
 				return optionArray;
 			},
 			submitGuestPassword(e) {

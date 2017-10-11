@@ -21,21 +21,22 @@ export function ifMobile() {
 */
 
 export function shuffleArray(array) {
-	var currentIndex = array.length,
-		temporaryValue, randomIndex;
 
-	// sWhile there remain elements to shuffle...
-	while (0 !== currentIndex) {
+	// var currentIndex = array.length;
+	// var	temporaryValue, randomIndex;
 
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
+	// // sWhile there remain elements to shuffle...
+	// while (0 !== currentIndex) {
 
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
+	// 	// Pick a remaining element...
+	// 	randomIndex = Math.floor(Math.random() * currentIndex);
+	// 	currentIndex -= 1;
+
+	// 	// And swap it with the current element.
+	// 	temporaryValue = array[currentIndex];
+	// 	array[currentIndex] = array[randomIndex];
+	// 	array[randomIndex] = temporaryValue;
+	// }
 
 	return array;
 }

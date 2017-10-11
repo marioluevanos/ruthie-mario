@@ -920,6 +920,9 @@ section.registry {
 		display: flex;
 		align-items: flex-start;
 		justify-content: flex-start;
+		
+		align-items: flex-end; // MACY's FUCCKING SUCKS!~
+
 		@include bp(2) {
 			align-items: center;
 			flex-direction: column;
