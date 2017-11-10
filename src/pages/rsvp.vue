@@ -59,13 +59,13 @@
 		messagingSenderId: "363754879000"
 	});
 
-	const db = Firebase.database();
+	const database = Firebase.database();
 
 	export default {
 		name: 'rsvp',
 		firebase: {
 			guests: {
-				source: db.ref('/'),
+				source: database.ref('/'),
 				asObject: false,
 				readyCallback() {
 
@@ -241,7 +241,7 @@
 				let attending = { attending: parseFloat(this.guestCountElement.value) };
 				
 				/* Updating Firebase records here */
-				db.ref(dbPath).update(attending);
+				database.ref(dbPath).update(attending);
 
 				/* Display thank you message */
 				let message = `\
