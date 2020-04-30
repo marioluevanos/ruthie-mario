@@ -29,7 +29,7 @@
 					p.scroll-rise 
 						span.split-lines After the initial meet, it took—maybe two weeks for us to finally arrange and have our first date. It was a year later that I moved in with her, and at that time he knew that Ruthie and I, are meant to be.
 			.col.scroll-rise
-				wedding-countdown.scroll-anim
+				//- wedding-countdown.scroll-anim
 				wedding-image.flower-2.scroll-anim(file='flower-2.png')
 				wedding-image.ep-2(file='ep-2.jpg', className='scroll-anim ep-2')
 					.overlay

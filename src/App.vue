@@ -19,6 +19,9 @@
 					window.scrollTo(0, 0);
 				}
 			}
+		},
+		mounted() {
+			
 		}
 	}
 </script>
@@ -41,7 +44,7 @@
 		color: $color-navy;
 		height: 100%;
 		font: 20px $font-regular;
-	    -webkit-tap-highlight-color: transparent;
+		-webkit-tap-highlight-color: transparent;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		@include bp(4) {
@@ -56,10 +59,11 @@
 			overflow-x: hidden; 
 		}
 	}
+
 	h3 {
 		color: $color-gold-1;
 		font-variant: all-small-caps;
-    	font-size: 3vw;
+		font-size: 3vw;
 		font-weight: normal;
 		margin: 0 0 vw(0);
 		@include bp(2) {
@@ -79,10 +83,23 @@
 		
 	}
 
-	// .overlay,
-	// .overlay-header {
-	// 	display: none !important;
-	// }
+	#scroller {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		.scroller-body {
+			position: absolute;
+			overflow: hidden;
+			z-index: 10;
+			backface-visibility: hidden;
+			transform-style: preserve-3d;
+			width: 100%;
+		}
+	}
 
 	#app {
 		position: relative;

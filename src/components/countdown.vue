@@ -18,7 +18,7 @@
 			}
 		},
 		mounted() {
-			if ( this.daysRemaining < 0 && this.hoursRemaining < 0 ) {
+			if (this.daysUntil < 0)  {
 				this.$el.remove()
 			}
 		},
